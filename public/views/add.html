@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Capture Image from Webcam</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Stream video via webcam -->
+      <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+          <h1 class="text-center">Data Latih</h1>
+          <video class="text-center" id="video" playsinline autoplay></video>
+        </div>
+      </div>
+
+      <!-- Trigger canvas web API -->
+      <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+          <form id="form">
+            <div class="form-group">
+              <input name="label" type="text" class="form-control" id="label" />
+            </div>
+            <!-- <button type="submit" id="btn" class="btn btn-primary">Add</button> -->
+          </form>
+          <button class="btn btn-primary" onclick="take_picture()">
+            Capture
+          </button>
+        </div>
+      </div>
+      <hr />
+
+      <!-- Webcam video snapshot -->
+      <!-- RGB - Grayscale - Threshold -->
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-center">Hasil 1</h1>
+        </div>
+        <div class="col-md-4">
+          <h3 class="text-center">RGB</h3>
+          <canvas id="imgRGB" width="40" height="30"></canvas>
+        </div>
+        <div class="col-md-4">
+          <h3 class="text-center">Grayscale</h3>
+          <canvas id="imgGrayscale" width="40" height="30"></canvas>
+        </div>
+        <div class="col-md-4">
+          <h3 class="text-center">Threshold</h3>
+          <canvas id="imgThreshold" width="40" height="30"></canvas>
+        </div>
+      </div>
+      <hr />
+
+      <!-- RGB - HSV - Threshold (Dalam satu canvas) -->
+      <!-- <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+          <h1 class="text-center">Hasil 2</h1>
+          <h5 class="text-center">RGB - HSV - Threshold (Dalam satu canvas)</h5>
+          <canvas id="imgHSV" width="320" height="240"></canvas>
+        </div>
+      </div> -->
+    </div>
+    <script src="../js/latih.js"></script>
+  </body>
+</html>

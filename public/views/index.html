@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Capture Image from Webcam</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <!-- <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    /> -->
+
+    <!-- <style>
+      canvas {
+        background-color: red;
+        padding: 5px;
+        margin: 5px;
+      }
+    </style> -->
+  </head>
+  <body>
+    <div class="container">
+      <!-- Stream video via webcam -->
+      <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+          <h1 class="text-center">Data Uji</h1>
+          <video class="text-center" id="video" playsinline autoplay></video>
+        </div>
+      </div>
+
+      <!-- Trigger canvas web API -->
+      <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+          <button class="btn btn-primary" onclick="start_snapping()">
+            Capture
+          </button>
+          <button class="btn btn-warning" onclick="stop_snapping()">
+            Stop
+          </button>
+          <div id="hasil"></div>
+        </div>
+      </div>
+      <hr />
+
+      <!-- Webcam video snapshot -->
+      <!-- RGB - Grayscale - Threshold -->
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-center">Hasil 1</h1>
+        </div>
+        <div class="col-md-4">
+          <h3 class="text-center">RGB</h3>
+          <canvas id="imgRGB" width="80" height="60"></canvas>
+        </div>
+        <div class="col-md-4">
+          <h3 class="text-center">Grayscale</h3>
+          <canvas id="imgGrayscale" width="80" height="60"></canvas>
+        </div>
+        <div class="col-md-4">
+          <h3 class="text-center">Threshold</h3>
+          <canvas id="imgThreshold" width="80" height="60"></canvas>
+        </div>
+      </div>
+      <hr />
+
+      <!-- RGB - HSV - Threshold (Dalam satu canvas) -->
+      <!-- <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+          <h1 class="text-center">Hasil 2</h1>
+          <h5 class="text-center">RGB - HSV - Threshold (Dalam satu canvas)</h5>
+          <canvas id="imgHSV" width="320" height="240"></canvas>
+        </div>
+      </div> -->
+    </div>
+    <script src="../js/main.js"></script>
+  </body>
+</html>

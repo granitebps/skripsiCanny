@@ -96,23 +96,25 @@ app.post("/test", (req, res) => {
     var data = req.body.crop;
 
     const net = new brain.NeuralNetwork({
-      learningRate: 0.3,
       activation: "sigmoid",
       hiddenLayers: [10]
     });
     const stats = net.train(trainingData, {
       log: error => console.log(error),
-      logPeriod: 100
+      logPeriod: 100,
+      learningRate: 0.3,
+      errorThresh: 0.01,
+      iterations: 10000
     });
     console.log(stats);
     console.log("Train completed");
     const output = net.run(data);
     var hasil;
-    if (output.Saya >= 0.8) {
+    if (output.Saya >= 0.7) {
       hasil = "Saya";
-    } else if (output.Lambang >= 0.8) {
+    } else if (output.Lambang >= 0.7) {
       hasil = "Lambang";
-    } else if (output.Horizontal >= 0.8) {
+    } else if (output.Horizontal >= 0.7) {
       hasil = "Horizontal";
     } else {
       hasil = "Hasil Tidak Diketahui";

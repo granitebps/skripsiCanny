@@ -10,8 +10,8 @@ const errorMsgElement = document.getElementById("span#ErrorMsg");
 
 const constraint = {
   video: {
-    width: 640,
-    height: 480
+    width: 128,
+    height: 128
   }
 };
 
@@ -121,8 +121,9 @@ function changeThreshold() {
 
     canvasContext.drawImage(imgGrayscale, 0, 0);
     var imgPixels = canvasContext.getImageData(0, 0, imgW, imgH);
+    // console.log(imgPixels.data);
 
-    var threshold = 70; // 0..255
+    var threshold = 100; // 0..255
     for (var i = 0; i < imgPixels.data.length; i += 4) {
       // 4 is for RGBA channels
       // R=G=B=R>T?255:0
@@ -135,17 +136,19 @@ function changeThreshold() {
       imgPixels.data[i] = imgPixels.data[i + 1] = imgPixels.data[i + 2] =
         imgPixels.data[i + 1] > threshold ? 0 : 255;
     }
+    console.log(imgPixels.data);
+    console.log(imgPixels.data.length);
     var uint8 = new Uint8ClampedArray(imgPixels.data);
     var normal = Array.prototype.slice.call(uint8);
-    console.log(normal.length);
-    console.log(normal[3]);
+    // console.log(normal.length);
+    // console.log(normal[3]);
 
     var crop = [];
     for (var k = 0; k < normal.length; k += 4) {
       crop.push(normal[k]);
       // crop[k] = normal[k];
     }
-    console.log(crop);
+    // console.log(crop);
 
     // var label = document.getElementById("label").value;
     // console.log(label);
@@ -162,12 +165,12 @@ function changeThreshold() {
     })
       .then(res => {
         return res.json();
-        console.log(res);
+        // console.log(res);
       })
       .then(data => {
         var hasil = document.getElementById("hasil");
         hasil.innerHTML = data.text;
-        console.log(data.text);
+        // console.log(data.text);
       });
 
     canvasContext.putImageData(
@@ -196,18 +199,26 @@ function changeGrayscale() {
 
     canvasContext.drawImage(imgRGB, 0, 0);
     var imgPixels = canvasContext.getImageData(0, 0, imgW, imgH);
-
-    for (var y = 0; y < imgPixels.height; y++) {
-      for (var x = 0; x < imgPixels.width; x++) {
-        var i = y * 4 * imgPixels.width + x * 4;
-        var avg =
-          (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) /
-          3;
-        imgPixels.data[i] = avg;
-        imgPixels.data[i + 1] = avg;
-        imgPixels.data[i + 2] = avg;
-      }
+    // console.log(imgPixels.data);
+    for (var i = 0; i < imgPixels.data.length; i += 4) {
+      var avg =
+        (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+      imgPixels.data[i] = avg;
+      imgPixels.data[i + 1] = avg;
+      imgPixels.data[i + 2] = avg;
     }
+
+    // for (var y = 0; y < imgPixels.height; y++) {
+    //   for (var x = 0; x < imgPixels.width; x++) {
+    //     var i = y * 4 * imgPixels.width + x * 4;
+    //     var avg =
+    //       (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) /
+    //       3;
+    //     imgPixels.data[i] = avg;
+    //     imgPixels.data[i + 1] = avg;
+    //     imgPixels.data[i + 2] = avg;
+    //   }
+    // }
     canvasContext.putImageData(
       imgPixels,
       0,
@@ -226,7 +237,7 @@ function changeGrayscale() {
 var timer = null;
 function take_snapshot() {
   var context = imgRGB.getContext("2d");
-  context.drawImage(video, 0, 0, 80, 60);
+  context.drawImage(video, 0, 0, 128, 128);
   changeGrayscale();
   changeThreshold();
   // changeHSV();

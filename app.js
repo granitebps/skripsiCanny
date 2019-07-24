@@ -44,12 +44,17 @@ app.get("/tambah", (req, res) => {
 app.post("/add", (req, res) => {
   var label = req.body.label;
   var data = req.body.crop;
+  console.log(data.length);
+
+  // Mengubah array 2d menjadi 1d
+  var newArr = [];
+  for (var i = 0; i < data.length; i++) {
+    newArr = newArr.concat(data[i]);
+  }
+
   // Convert array to string
-  var sample = data.toString();
-  // console.log(sample);
-  // console.log(sample2);
-  // console.log(req.body.label);
-  // console.log(req.body.crop);
+  var sample = newArr.toString();
+
   let post = { label: label, data: sample };
   let sql = "INSERT INTO data SET ?";
   let query = db.query(sql, post, (err, result) => {

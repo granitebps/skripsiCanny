@@ -10,8 +10,8 @@ const errorMsgElement = document.getElementById("span#ErrorMsg");
 
 const constraint = {
   video: {
-    width: 640,
-    height: 480
+    width: 128,
+    height: 128
   }
 };
 
@@ -32,82 +32,6 @@ function handleSuccess(stream) {
 }
 // Load init
 init();
-
-// HSV
-function changeHSV() {
-  function hsv(imgRGB) {
-    var canvasContext = imgHSV.getContext("2d");
-    var canvasContextRGB = imgRGB.getContext("2d");
-
-    var imgW = imgRGB.width;
-    var imgH = imgRGB.height;
-    imgHSV.width = imgW;
-    imgHSV.height = imgH;
-
-    canvasContext.drawImage(imgRGB, 0, 0);
-    var imgPixels = canvasContext.getImageData(0, 0, imgW, imgH);
-    var imgPixelsRGB = canvasContextRGB.getImageData(0, 0, imgW, imgH);
-
-    // console.log(imgPixels.data);
-    // Put Code Here
-    var src = imgPixelsRGB.data,
-      dst = imgPixels.data,
-      len = dst.length,
-      i = 0,
-      j = 0,
-      r,
-      g,
-      b,
-      h,
-      s,
-      v,
-      value;
-
-    for (; i < len; i += 4) {
-      r = src[i];
-      g = src[i + 1];
-      b = src[i + 2];
-
-      v = Math.max(r, g, b);
-      s = v === 0 ? 0 : (255 * (v - Math.min(r, g, b))) / v;
-      h = 0;
-
-      if (0 !== s) {
-        if (v === r) {
-          h = (30 * (g - b)) / s;
-        } else if (v === g) {
-          h = 60 + (b - r) / s;
-        } else {
-          h = 120 + (r - g) / s;
-        }
-        if (h < 0) {
-          h += 360;
-        }
-      }
-
-      value = 0;
-
-      if (v >= 15 && v <= 250) {
-        if (h >= 3 && h <= 33) {
-          value = 255;
-        }
-      }
-
-      dst[j++] = value;
-    }
-    canvasContext.putImageData(
-      imgPixels,
-      0,
-      0,
-      0,
-      0,
-      imgPixels.width,
-      imgPixels.height
-    );
-    return imgHSV.toDataURL();
-  }
-  imgHSV.src = hsv(imgRGB);
-}
 
 // Threshold
 function changeThreshold() {
@@ -227,12 +151,64 @@ function changeGrayscale() {
   imgGrayscale.src = gray(imgRGB);
 }
 
+// ---------------------------------------------------------------- CANNY ---------------------------------------------------------------------------
+
+// Canny
+function changeCanny() {
+  // get target canvas element
+  mycanvas = document.getElementById("imgRGB");
+  // perform edge detection
+  imageData = CannyJS.canny(mycanvas);
+  // console.log(imageData.data);
+  // get output canvas element
+  outputcanvas = document.getElementById("outputcanvas");
+  // overwrites the original canvas
+  imageData.drawOn(outputcanvas);
+
+  // Simpan Data
+  // fetch("/add", {
+  //   method: "POST",
+  //   headers: {
+  //     Accept: "application/json, text/plain, */*",
+  //     "Content-Type": "application/json"
+  //   },
+  //   body: JSON.stringify({
+  //     label: label,
+  //     crop: imageData.data
+  //   })
+  // })
+  //   .then(res => {
+  //     return res.json();
+  //   })
+  //   .then(data => {
+  //     // alert(data.text);
+  //     console.log(data);
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   });
+}
+
+function grayscaleCanny() {
+  var canvas = document.getElementById("imgRGB");
+  // construct a new GrayImageData object
+  var imageData = new GrayImageData(canvas.width, canvas.height);
+  // load image data from canvas
+  // console.log(imageData.data);
+  var grayscaleCanvas = document.getElementById("imgGrayscale");
+  imageData.loadCanvas(canvas);
+  // console.log(imageData);
+  imageData.drawOn(grayscaleCanvas);
+}
+
 // Capture image
 function take_snapshot() {
   var context = imgRGB.getContext("2d");
-  context.drawImage(video, 0, 0, 40, 30);
-  changeGrayscale();
-  changeThreshold();
+  context.drawImage(video, 0, 0, 128, 128);
+  // changeGrayscale();
+  // changeThreshold();
+  grayscaleCanny();
+  changeCanny();
   // changeHSV();
 }
 function take_picture() {

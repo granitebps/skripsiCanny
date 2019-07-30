@@ -49,7 +49,7 @@
       <!-- RGB - Grayscale - Threshold -->
       <div class="row">
         <div class="col-md-12">
-          <h1 class="text-center">Hasil 1</h1>
+          <h1 class="text-center">Hasil</h1>
         </div>
         <div class="col-md-4">
           <h3 class="text-center">RGB</h3>
@@ -59,22 +59,14 @@
           <h3 class="text-center">Grayscale</h3>
           <canvas id="imgGrayscale" width="128" height="128"></canvas>
         </div>
-        <div class="col-md-4">
-          <h3 class="text-center">Threshold</h3>
-          <canvas id="imgThreshold" width="128" height="128"></canvas>
+        <div class="col-md-3">
+          <h3 class="text-center">Canny</h3>
+          <canvas id="outputcanvas" width="128" height="128"></canvas>
         </div>
       </div>
       <hr />
-
-      <!-- RGB - HSV - Threshold (Dalam satu canvas) -->
-      <!-- <div class="row justify-content-md-center">
-        <div class="col-md-auto">
-          <h1 class="text-center">Hasil 2</h1>
-          <h5 class="text-center">RGB - HSV - Threshold (Dalam satu canvas)</h5>
-          <canvas id="imgHSV" width="320" height="240"></canvas>
-        </div>
-      </div> -->
     </div>
+    <script src="../js/canny.min.js"></script>
     <script src="../js/main.js"></script>
   </body>
 </html>

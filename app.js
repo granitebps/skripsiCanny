@@ -44,7 +44,7 @@ app.get("/tambah", (req, res) => {
 app.post("/add", (req, res) => {
   var label = req.body.label;
   var data = req.body.crop;
-  console.log(data.length);
+  // console.log(data.length);
 
   // Mengubah array 2d menjadi 1d
   var newArr = [];
@@ -52,20 +52,28 @@ app.post("/add", (req, res) => {
     newArr = newArr.concat(data[i]);
   }
 
+  // Mengubah nilai 255 menjadi 1
+  var biner = [];
+  for (var k = 0; k < newArr.length; k++) {
+    if (newArr[k] == 255) {
+      biner[k] = 1;
+    } else {
+      biner[k] = 0;
+    }
+  }
+
   // Convert array to string
-  var sample = newArr.toString();
+  var sample = biner.toString();
 
   let post = { label: label, data: sample };
   let sql = "INSERT INTO data SET ?";
   let query = db.query(sql, post, (err, result) => {
     if (err) throw err;
-    console.log(result);
-    res.send("Post 1 added...");
+    hasil = {
+      text: "Data Berhasil Ditambah"
+    };
+    return res.send(hasil);
   });
-  result = {
-    text: "Data Berhasil Ditambah"
-  };
-  return res.send(result);
 });
 
 app.post("/test", (req, res) => {
@@ -98,7 +106,13 @@ app.post("/test", (req, res) => {
     // console.log(trainingData);
 
     var db_length = results.length;
-    var data = req.body.crop;
+    var uji = req.body.crop;
+
+    // Mengubah array 2d menjadi 1d
+    var data = [];
+    for (var i = 0; i < uji.length; i++) {
+      data = data.concat(uji[i]);
+    }
 
     const net = new brain.NeuralNetwork({
       activation: "sigmoid",
@@ -109,57 +123,35 @@ app.post("/test", (req, res) => {
       logPeriod: 100,
       learningRate: 0.3,
       errorThresh: 0.01,
-      iterations: 10000
+      iterations: 1000
     });
     console.log(stats);
     console.log("Train completed");
     const output = net.run(data);
-    var hasil;
-    if (output.Saya >= 0.7) {
-      hasil = "Saya";
-    } else if (output.Lambang >= 0.7) {
-      hasil = "Lambang";
-    } else if (output.Horizontal >= 0.7) {
-      hasil = "Horizontal";
-    } else {
-      hasil = "Hasil Tidak Diketahui";
-    }
+
+    // Hasil training (objek)
     console.log(output);
+
+    // Mencari objek dengan nilai tertinggi
+    function getKeysWithHighestValue(o, n) {
+      var keys = Object.keys(o);
+      keys.sort(function(a, b) {
+        return o[b] - o[a];
+      });
+      return keys.slice(0, n);
+    }
+    var hasil = getKeysWithHighestValue(output, 1);
+
+    console.log("object", hasil.toString());
+
     result = {
-      text: hasil
+      text: hasil.toString()
     };
     // console.log(result);
     // return JSON.stringify(result);
     // res.json(result);
     return res.send(result);
   });
-  // console.log(data);
-  // console.log(data.crop.length);
-
-  // var trainingData = [
-  //   {
-  //     input: data,
-  //     output: "A"
-  //   }
-  // ];
-  // var tes = [];
-  // for (var z = 0; z < 10000; z++) {
-  //   var n = Math.floor(Math.random() * Math.floor(2));
-  //   tes.push(n);
-  // }
-  // console.log(tes);
-  // console.log(tes.length);
-  // const trainingData = [
-  //   {
-  //     input: data,
-  //     output: [0]
-  //   }
-  // ];
-  // [
-  //   { input: { r: 0.03, g: 0.7, b: 0.5 }, output: { black: 1 } },
-  //   { input: { r: 0.16, g: 0.09, b: 0.2 }, output: { white: 1 } },
-  //   { input: { r: 0.5, g: 0.5, b: 1.0 }, output: { white: 1 } }
-  // ];
 });
 
 app.listen(3000, () => {

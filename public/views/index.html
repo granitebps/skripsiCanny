@@ -5,68 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Capture Image from Webcam</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
-    <!-- <link
+    <!-- <link rel="stylesheet" href="../css/bootstrap.min.css" /> -->
+    <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
-    /> -->
-
-    <!-- <style>
-      canvas {
-        background-color: red;
-        padding: 5px;
-        margin: 5px;
+    />
+    <style>
+      html,
+      body {
+        height: 100%;
       }
-    </style> -->
+    </style>
   </head>
   <body>
-    <div class="container">
-      <!-- Stream video via webcam -->
-      <div class="row justify-content-md-center">
-        <div class="col-md-auto">
-          <h1 class="text-center">Data Uji</h1>
-          <video class="text-center" id="video" playsinline autoplay></video>
+    <div class="container d-flex h-100">
+      <div class="row justify-content-center align-self-center">
+        <h1 class="text-center">Aplikasi Pengenalan Pola Bahasa Isyarat</h1>
+        <br />
+        <div class="col-md-12 text-center">
+          <a href="/uji" class="btn btn-success">Halaman Uji</a>
+          <a href="/tambah" class="btn btn-primary">Halaman Tambah Data</a>
         </div>
       </div>
-
-      <!-- Trigger canvas web API -->
-      <div class="row justify-content-md-center">
-        <div class="col-md-auto">
-          <button class="btn btn-primary" onclick="start_snapping()">
-            Capture
-          </button>
-          <button class="btn btn-warning" onclick="stop_snapping()">
-            Stop
-          </button>
-          <div id="hasil"></div>
-        </div>
-      </div>
-      <hr />
-
-      <!-- Webcam video snapshot -->
-      <!-- RGB - Grayscale - Threshold -->
-      <div class="row">
-        <div class="col-md-12">
-          <h1 class="text-center">Hasil</h1>
-        </div>
-        <div class="col-md-4">
-          <h3 class="text-center">RGB</h3>
-          <canvas id="imgRGB" width="128" height="128"></canvas>
-        </div>
-        <div class="col-md-4">
-          <h3 class="text-center">Grayscale</h3>
-          <canvas id="imgGrayscale" width="128" height="128"></canvas>
-        </div>
-        <div class="col-md-3">
-          <h3 class="text-center">Canny</h3>
-          <canvas id="outputcanvas" width="128" height="128"></canvas>
-        </div>
-      </div>
-      <hr />
     </div>
-    <script src="../js/canny.min.js"></script>
-    <script src="../js/main.js"></script>
   </body>
 </html>

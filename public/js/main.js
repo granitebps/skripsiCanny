@@ -64,7 +64,9 @@ function changeCanny() {
       // alert(data.text);
       console.log(data);
       var hasil = document.getElementById("hasil");
-      hasil.innerHTML = data.text;
+      hasil.innerHTML = `Hasil : ${data.text}`;
+      var audio = new Audio(`../audio/${data.text}.mp3`);
+      audio.play();
     })
     .catch(err => {
       console.log(err);
@@ -79,10 +81,11 @@ function take_snapshot() {
   changeCanny();
 }
 function start_snapping() {
-  take_snapshot();
+  // take_snapshot();
   if (!timer) {
     timer = setInterval(take_snapshot, 3000);
   }
+  // setTimeout(take_snapshot, 3000);
 }
 function stop_snapping() {
   if (timer) {

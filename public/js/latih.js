@@ -95,9 +95,9 @@ function take_snapshot() {
   context.drawImage(video, 0, 0, 128, 128);
   var rgb = context.getImageData(0, 0, 128, 128);
   // console.log("rgb", rgb);
-  grayscaleCanny();
+  // grayscaleCanny();
   changeCanny();
 }
 function take_picture() {
-  take_snapshot();
+  setTimeout(take_snapshot, 5000);
 }

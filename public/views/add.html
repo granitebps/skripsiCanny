@@ -7,12 +7,32 @@
     <title>Capture Image from Webcam</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
   </head>
-  <body>
+  <body style="background: #e3f2fd">
     <div class="container">
+      <nav
+        class="navbar navbar-expand-lg navbar-light"
+        style="background-color: #e3f2fd;"
+      >
+        <div class="collapse navbar-collapse" id="navbarColor03">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/uji">Uji</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tambah">Tambah Data</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <!-- Stream video via webcam -->
       <div class="row justify-content-md-center">
         <div class="col-md-auto">
-          <h1 class="text-center">Data Latih</h1>
+          <h1 class="text-center">Tambah Data</h1>
           <video class="text-center" id="video" playsinline autoplay></video>
         </div>
       </div>

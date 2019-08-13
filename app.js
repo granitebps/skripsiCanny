@@ -14,11 +14,17 @@ app.engine("html", require("ejs").renderFile);
 app.set("view engine", "html");
 
 // Create connection
+// const db = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "",
+//   database: "skripsi"
+// });
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "skripsi"
+  host: "us-cdbr-iron-east-02.cleardb.net",
+  user: "b9ae6c795643a3",
+  password: "2d6f8425",
+  database: "heroku_56e95c81e9fd72d"
 });
 
 // Connect
@@ -62,32 +68,32 @@ app.get("/uji", (req, res) => {
     }
 
     // Train Data
-    const net = new brain.NeuralNetwork({
-      activation: "sigmoid",
-      hiddenLayers: [10]
-    });
-    const stats = net.train(trainingData, {
-      log: error => console.log(error),
-      logPeriod: 100,
-      learningRate: 0.3,
-      errorThresh: 0.01,
-      iterations: 1000
-    });
-    // console.log(stats);
-    // console.log("Train completed");
-    var train = net.toJSON();
-    // console.log("train", net);
-    require("fs").writeFile(
-      "./public/train.json",
+    // const net = new brain.NeuralNetwork({
+    //   activation: "sigmoid",
+    //   hiddenLayers: [10]
+    // });
+    // const stats = net.train(trainingData, {
+    //   log: error => console.log(error),
+    //   logPeriod: 100,
+    //   learningRate: 0.3,
+    //   errorThresh: 0.01,
+    //   iterations: 1000
+    // });
+    // // console.log(stats);
+    // // console.log("Train completed");
+    // var train = net.toJSON();
+    // // console.log("train", net);
+    // require("fs").writeFile(
+    //   "./public/train.json",
 
-      JSON.stringify(train),
+    //   JSON.stringify(train),
 
-      function(err) {
-        if (err) {
-          console.error("Crap happens");
-        }
-      }
-    );
+    //   function(err) {
+    //     if (err) {
+    //       console.error("Crap happens");
+    //     }
+    //   }
+    // );
   });
   res.render("uji.html", { done: true });
 });
@@ -243,6 +249,7 @@ app.post("/test", (req, res) => {
   // });
 });
 
-app.listen(3000, () => {
-  console.log(`Server started at port 3000`);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server started at port ${port}`);
 });

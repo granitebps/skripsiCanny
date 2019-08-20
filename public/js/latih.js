@@ -99,5 +99,5 @@ function take_snapshot() {
   changeCanny();
 }
 function take_picture() {
-  setTimeout(take_snapshot, 5000);
+  setTimeout(take_snapshot, 1500);
 }

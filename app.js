@@ -14,17 +14,11 @@ app.engine("html", require("ejs").renderFile);
 app.set("view engine", "html");
 
 // Create connection
-// const db = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "",
-//   database: "skripsi"
-// });
 const db = mysql.createConnection({
-  host: "us-cdbr-iron-east-02.cleardb.net",
-  user: "b9ae6c795643a3",
-  password: "2d6f8425",
-  database: "heroku_56e95c81e9fd72d"
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "skripsi"
 });
 
 // Connect

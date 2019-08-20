@@ -83,7 +83,7 @@ function take_snapshot() {
 function start_snapping() {
   // take_snapshot();
   if (!timer) {
-    timer = setInterval(take_snapshot, 3000);
+    timer = setInterval(take_snapshot, 1500);
   }
   // setTimeout(take_snapshot, 3000);
 }
